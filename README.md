@@ -15,10 +15,20 @@ A benchmark folder exists. The better is to test by yourself.
 
 Benchmarks usually show between x2 and x10 gains.
 
+## It looks to good to be true... any limitation? Drawback?
+
+Of course if this library is more efficient than standard functions there is a reason...
+
+1. This library handles only decimal numbers (no way to change the base as in strtol);
+2. This library does not implement safety checks on the data to read/write (e.g. it is not thread-safe);
+3. This library does not reimplement the performance-killer (but comfortable to use) patterns of the printf family functions (printf, sprintf...).
+
 ## How to use?
 
 Functions are named with a pattern:
+```
 "fiol" <format> <action> <type>
+```
 
 With:
 * format: 'B' for binary format, 'S' for string format
@@ -54,3 +64,22 @@ uint16_t uint16 = 0;
 
 cursor += (length = fiolBReadU16BE(cursor, &uint16));
 ```
+
+## List of equivalences
+### To read from a string
+| Standard function | Example | FIOL equivalent of the example |
+| ------------- | ------------- | ------------- |
+| atof | `val = atof(str);` | `fiolSReadFloat(str, &val);`|
+| atoi | `val = atoi(str);` | `fiolSReadInt(str, &val);`|
+| atol | `val = atol(str);` | `fiolSReadInt(str, &val);`|
+| sscanf | `sscanf(str, "%d", &val);` | `fiolSReadInt(str, &val);`|
+| sscanf | `sscanf(str, "%d %d", &val1, &val2);` | `str += fiolSReadInt(str, &val1); str += fiolSReadChar(str, 0); str += fiolSReadInt(str, &val2);`|
+| strtod | `val = strtod(str, 0);` | `fiolSReadFloat(str, &val);`|
+| strtol | `val = strtol(str, 0, 10);` | `fiolSReadInt(str, &val);`|
+
+### To write to a string
+| Standard function | Example | FIOL equivalent of the example |
+| ------------- | ------------- | ------------- |
+| itoa | `itoa(val, str, 10);` | `fiolSWriteInt(str, val);`|
+| sprintf | `sprintf(str, "%d", val);` | `fiolSWriteInt(str, val);`|
+| sprintf | `sprintf(str, "%d %d", val1, val2);` | `str += fiolSWriteInt(str, &val1); str += fiolSWriteChar(str, ' '); str += fiolSWriteInt(str, &val2);` |
