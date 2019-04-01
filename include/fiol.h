@@ -85,18 +85,18 @@ uint8_t fiolBReadU8LE(const unsigned char* src, uint8_t *dst);
 uint8_t fiolBReadU16LE(const unsigned char* src, uint16_t *dst);
 uint8_t fiolBReadU32LE(const unsigned char* src, uint32_t *dst);
 #else
-#   define fiolBRead8BE(s, d) (1+(d!=NULL?((*d)=(s)[0])&&0:0))
-#   define fiolBRead16BE(s, d) (2+(d!=NULL?((*d)=((s)[0]<<8)+(s)[1])&&0:0))
-#   define fiolBRead32BE(s, d) (4+(d!=NULL?((*d)=((s)[0]<<24)+((s)[1]<<16)+((s)[2]<<8)+((s)[3]))&&0:0))
-#   define fiolBRead8LE(s, d) (1+(d!=NULL?((*d)=(s)[0])&&0:0))
-#   define fiolBRead16LE(s, d) (2+(d!=NULL?((*d)=((s)[1]<<8)+(s)[0])&&0:0))
-#   define fiolBRead32LE(s, d) (4+(d!=NULL?((*d)=((s)[3]<<24)+((s)[2]<<16)+((s)[1]<<8)+((s)[0]))&&0:0))
-#   define fiolBReadU8BE(s, d) fiolBRead8BE(s, d)
-#   define fiolBReadU16BE(s, d) fiolBRead16BE(s, d)
-#   define fiolBReadU32BE(s, d) fiolBRead32BE(s, d)
-#   define fiolBReadU8LE(s, d) fiolBRead8LE(s, d)
-#   define fiolBReadU16LE(s, d) fiolBRead16LE(s, d)
-#   define fiolBReadU32LE(s, d) fiolBRead32LE(s, d)
+#   define fiolBRead8BE(s, d)       (1+((d)!=NULL?((*d)=(s)[0])&&0:0))
+#   define fiolBRead16BE(s, d)      (2+((d)!=NULL?((*d)=((s)[0]<<8)+(s)[1])&&0:0))
+#   define fiolBRead32BE(s, d)      (4+((d)!=NULL?((*d)=((s)[0]<<24)+((s)[1]<<16)+((s)[2]<<8)+((s)[3]))&&0:0))
+#   define fiolBRead8LE(s, d)       (1+((d)!=NULL?((*d)=(s)[0])&&0:0))
+#   define fiolBRead16LE(s, d)      (2+((d)!=NULL?((*d)=((s)[1]<<8)+(s)[0])&&0:0))
+#   define fiolBRead32LE(s, d)      (4+((d)!=NULL?((*d)=((s)[3]<<24)+((s)[2]<<16)+((s)[1]<<8)+((s)[0]))&&0:0))
+#   define fiolBReadU8BE(s, d)      fiolBRead8BE(s, d)
+#   define fiolBReadU16BE(s, d)     fiolBRead16BE(s, d)
+#   define fiolBReadU32BE(s, d)     fiolBRead32BE(s, d)
+#   define fiolBReadU8LE(s, d)      fiolBRead8LE(s, d)
+#   define fiolBReadU16LE(s, d)     fiolBRead16LE(s, d)
+#   define fiolBReadU32LE(s, d)     fiolBRead32LE(s, d)
 #endif
 
 // Functions to write to a binary string
@@ -114,18 +114,18 @@ uint8_t fiolBWriteU8LE(unsigned char* dst, uint8_t val);
 uint8_t fiolBWriteU16LE(unsigned char* dst, uint16_t val);
 uint8_t fiolBWriteU32LE(unsigned char* dst, uint32_t val);
 #else
-#   define fiolBWrite8BE(d, v) (1+0*((d)[0]=(v)))
-#   define fiolBWrite16BE(d, v) (2+0*((d)[0]=((v)>>8)&0xFF)+0*((d)[1]=(v)))
-#   define fiolBWrite32BE(d, v) (4+0*((d)[0]=((v)>>24)&0xFF)+0*((d)[1]=((v)>>16)&0xFF)+0*((d)[2]=((v)>>8)&0xFF)+0*((d)[3]=((v)>>0)&0xFF))
-#   define fiolBWrite8LE(d, v) (1+0*((d)[0]=(v)))
-#   define fiolBWrite16LE(d, v) (2+0*((d)[1]=((v)>>8)&0xFF)+0*((d)[0]=(v)))
-#   define fiolBWrite32LE(d, v) (4+0*((d)[3]=((v)>>24)&0xFF)+0*((d)[2]=((v)>>16)&0xFF)+0*((d)[1]=((v)>>8)&0xFF)+0*((d)[0]=((v)>>0)&0xFF))
-#   define fiolBWriteU8BE(d, v) fiolBWrite8BE(d, v)
-#   define fiolBWriteU16BE(d, v) fiolBWrite16BE(d, v)
-#   define fiolBWriteU32BE(d, v) fiolBWrite32BE(d, v)
-#   define fiolBWriteU8LE(d, v) fiolBWrite8LE(d, v)
-#   define fiolBWriteU16LE(d, v) fiolBWrite16LE(d, v)
-#   define fiolBWriteU32LE(d, v) fiolBWrite32LE(d, v)
+#   define fiolBWrite8BE(d, v)      (1+0*((d)[0]=((v)>>0)&0xFF))
+#   define fiolBWrite16BE(d, v)     (2+0*((d)[0]=((v)>>8)&0xFF)+0*((d)[1]=((v)>>0)&0xFF))
+#   define fiolBWrite32BE(d, v)     (4+0*((d)[0]=((v)>>24)&0xFF)+0*((d)[1]=((v)>>16)&0xFF)+0*((d)[2]=((v)>>8)&0xFF)+0*((d)[3]=((v)>>0)&0xFF))
+#   define fiolBWrite8LE(d, v)      (1+0*((d)[0]=((v)>>0)&0xFF))
+#   define fiolBWrite16LE(d, v)     (2+0*((d)[1]=((v)>>8)&0xFF)+0*((d)[0]=((v)>>0)&0xFF))
+#   define fiolBWrite32LE(d, v)     (4+0*((d)[3]=((v)>>24)&0xFF)+0*((d)[2]=((v)>>16)&0xFF)+0*((d)[1]=((v)>>8)&0xFF)+0*((d)[0]=((v)>>0)&0xFF))
+#   define fiolBWriteU8BE(d, v)     fiolBWrite8BE(d, v)
+#   define fiolBWriteU16BE(d, v)    fiolBWrite16BE(d, v)
+#   define fiolBWriteU32BE(d, v)    fiolBWrite32BE(d, v)
+#   define fiolBWriteU8LE(d, v)     fiolBWrite8LE(d, v)
+#   define fiolBWriteU16LE(d, v)    fiolBWrite16LE(d, v)
+#   define fiolBWriteU32LE(d, v)    fiolBWrite32LE(d, v)
 #endif
 
 #ifdef __cplusplus
